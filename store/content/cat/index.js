@@ -7,6 +7,7 @@ export default {
     namespaced:true,
     state:()=>({
         error:{},
+        test:'这是用于测试的',
         data:{
             list:[]
         }

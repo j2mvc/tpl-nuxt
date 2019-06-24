@@ -4,7 +4,7 @@
       <h2 class="subtitle">
         网站模板
       </h2>
-      <div class="error">分类接口错误：{{err}}</div>
+      <div class="error">{{testState}}分类接口错误：{{err}}</div>
       <div class="links">
         <nuxt-link v-for="item in cats" :to="'/content/'+item.id" class="button--grey" :key="item.id">{{item.name}}</nuxt-link>
       </div>
@@ -57,6 +57,9 @@ export default {
     }
   },
   computed:{
+     testState(){
+       return this.$store.state.content.cat.test
+     }
     // cats () {
     //   console.log('store,',JSON.stringify(this.$store.modules));
     //   return []
