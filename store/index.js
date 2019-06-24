@@ -1,20 +1,9 @@
-export const state = () => {
-  return {
-    user: null
-  }
-}
+export const state = () => ({
+  counter: 0
+})
 
 export const mutations = {
-  SET_USER (state, user) {
-    state.user = user || null
-  }
-}
-
-export const getters = {
-  isMobile (state) {
-    return !!state.user
-  },
-  loggedUser (state) {
-    return state.user
+  increment (state) {
+    state.counter++
   }
 }

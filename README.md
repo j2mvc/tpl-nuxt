@@ -28,5 +28,6 @@ npm install --save http-proxy-middleware
 npm install --save vuex
 npm install --save element-ui
 npm install babel-plugin-component -D
+npm install md5 lru-cache js-cookie -S
 
 ```

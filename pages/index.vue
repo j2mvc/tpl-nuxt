@@ -16,7 +16,8 @@
 
 import axios from 'axios'
 import Logo from '~/components/Logo.vue'
-import { mapMutations } from 'vuex'
+import api from '~/api'
+// import {mapState,mapGetters, mapActions,mapMutations } from 'vuex'
 
 export default {
   components: {
@@ -24,34 +25,53 @@ export default {
   },
   data(){
       return {
-        err:'',
         title:'',
+        err:'',
         cats:[]
       }
   },
-
-  asyncData ({ query,params }) {
-    let url = `/api/getCats?apikey=66bb75d01825f4e06963dd645d901bbe&moduleId=201412290840356913`
-    return axios.get(url)
-      .then((res) => {
-        // 返回数据
-        if(res.data.code == 1){
-          return {title:'分类列表',cats: res.data.data.list }
-        }else{
-          return {err: res}
-        }
-      })
-      .catch((e) => {
-        return {err: e}
-      });
+  asyncData ({router, store }) {
+    return api.request.get({
+      url: '/getCats',
+      params:{
+        moduleId:'201412290840356913'
+      },
+      cache:true
+    }).then(res => {
+      // 返回数据
+      if(res.code == 1){
+        return { title:res.data.list[0].name,cats: res.data.list }
+      }else{
+        return {code:-1,message:'未获取到'};
+      }
+    }).catch(error => {
+      return { err: error}
+    })
   },
   head () {
     return {
-      title: this.title,
+      title: '首页',
       meta: [
         { hid: 'description', name: 'description', content: 'My custom description' }
       ]
     }
+  },
+  computed:{
+    // cats () {
+    //   console.log('store,',JSON.stringify(this.$store.modules));
+    //   return []
+    // },
+    // ...mapGetters({
+      // err:"content/cat/getError"//,
+      // cats:'content/cat/getList'
+    // })
+  },
+  mounted(){
+  },
+  methods:{
+    // ...mapActions({
+    //   getCats:'content/cat/getList'
+    // })
   }
 }
 </script>

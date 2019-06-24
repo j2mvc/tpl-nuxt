@@ -24,8 +24,8 @@ export default {
     }
   },
 
-  asyncData ({ query,redict,route,params }) {
-    let isMobile = util.isMobile();
+  asyncData ({ req,router,query,route,params }) {
+    let isMobile = util.isMobile(req);
     let url = `/api/getContentList?apikey=66bb75d01825f4e06963dd645d901bbe&catId=${params.catId}`
     return axios.get(url)
       .then((res) => {

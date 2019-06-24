@@ -1,5 +1,8 @@
-
+import cookies from './util.cookies'
+import log from './util.log'
 const util = {
+  cookies,
+  log
 }
 
 /**
@@ -32,9 +35,13 @@ util.createId = function(){
     var r = Math.abs(Math.floor(Math.random() * (1001 - 9999))) ;
     return t+''+r;
 }
-util.isMobile = function () {
-    let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
-    return flag;
+// 是否是手机端
+util.isMobile = function (req) {
+  // 给上下文对象增加 userAgent 属性（增加的属性可在 `asyncData` 和 `fetch` 方法中获取）
+  let userAgent = process.server ? req.headers['user-agent'] : navigator.userAgent
+  if(userAgent)
+    return  userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+  return undefined;
 }
 
 /**
