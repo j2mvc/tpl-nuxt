@@ -14,7 +14,6 @@
 
 <script>
 
-import axios from 'axios'
 import Logo from '~/components/Logo.vue'
 import api from '~/api'
 // import {mapState,mapGetters, mapActions,mapMutations } from 'vuex'

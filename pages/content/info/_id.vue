@@ -1,54 +1,48 @@
 <template>
-  <div class="container">
-    <div>
-      <h2 class="subtitle">
-       详情页
-      </h2>
-      <div>some:{{some}}</div>
-      <nuxt-link to="/">首页</nuxt-link>
-      <div class="error">分类接口错误：{{err}}</div>
-        <div>
-          <h3>{{info.title}}</h3>
-          <div v-html="info.content">
-
-
-          </div>
-      </div>
-    </div>
+  <div>
+    <mobile-info :err="err" :info="info" v-if="isMobile"/>
+    <pc-info :err="err" :info="info" v-else/>
   </div>
 </template>
 
 <script>
 
-import axios from 'axios'
+  import PcInfo from '~/components/pages/pc/content/ContentInfo.vue'
+  import MobileInfo from '~/components/pages/mobile/content/ContentInfo.vue'
+  import api from '~/api'
+  import util from '~/libs/util'
 
 export default {
   components: {
+    PcInfo,MobileInfo
   },
   data(){
     return {
       err:'',
-      some:'',
-      info:{}
+      info:{},
+      title:'',
+      isMobile:false,
     }
   },
 
-  asyncData ({params}) {
-    let some = JSON.stringify(params);
-
-    let url = `/api/getContentInfo?apikey=66bb75d01825f4e06963dd645d901bbe&id=${params.id}`
-    return axios.get(url)
-      .then((res) => {
-        // 返回数据
-        if(res.data.code == 1){
-          return {some:some, info: res.data.data.info }
-        }else{
-          return {some:some,err: res}
-        }
-      })
-      .catch((e) => {
-        return {err: e}
-      });
+  asyncData ({req,params}) {
+    let isMobile = util.isMobile(req);
+    return api.request.get({
+      url: '/getContentInfo',
+      params:{
+        id:params.id
+      },
+      cache:true
+    }).then(res => {
+      // 返回数据
+      if(res.code == 1){
+        return {isMobile:isMobile, info: res.data.info }
+      }else{
+        return {isMobile:isMobile,err: '未获取到'};
+      }
+    }).catch(error => {
+      return { isMobile:isMobile,err: error}
+    })
   },
   head () {
     return {
