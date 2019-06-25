@@ -1,30 +1,7 @@
 import axios from 'axios'
-import {Message} from 'element-ui'
 import util from '../libs/util'
 import md5 from 'md5'
 import config from './config.js'
-
-// 创建一个错误
-function errorCreate(msg) {
-    const error = new Error(msg)
-    errorLog(error)
-    throw error
-}
-
-// 记录和显示错误
-function errorLog(error) {
-    // 打印到控制台
-    if (process.env.NODE_ENV === 'development') {
-        util.log.danger('>>>>>> Error >>>>>>')
-        console.log(error)
-    }
-    // 显示提示
-    // Message({
-    //     message: error.message,
-    //     type: 'error',
-    //     duration: 5 * 1000
-    // })
-}
 
 // 创建一个 axios 实例
 const service = axios.create({
@@ -129,11 +106,9 @@ service.interceptors.response.use(function (response) {
     } else if (code == 0) {
         // code == 0 失败
         message = data.message;
-        errorCreate(`[ code: 0 ] ${data.message}: ${response.config.url}`)
     } else {
         // 不是正确的 code
         message = '请求失败';
-        errorCreate(`未知代码: ${response.config.url}`)
     }
     return {code: -1, message: message};
 }, function (error) {
@@ -177,7 +152,6 @@ service.interceptors.response.use(function (response) {
                 break
         }
     }
-    // errorLog(error)
     return Promise.reject(error);
 });
 

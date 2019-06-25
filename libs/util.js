@@ -52,4 +52,58 @@ util.logger = function (...text) {
         console.log(...text)
     }
 }
+
+/**
+ * formate timastamp to time
+ * @param {String} timestamp
+ */
+util.formatDate= function (timestamp){
+    var now = new Date(parseInt(timestamp));
+    var year=now.getFullYear();
+    var month=now.getMonth()+1;
+    var date=now.getDate();
+    var hour=now.getHours();
+    var minute=now.getMinutes();
+    if (month >= 1 && month <= 9) {
+        month = "0" + month;
+    }
+    if (date >= 0 && date <= 9) {
+        date = "0" + date;
+    }
+    if (hour >= 0 && hour <= 9) {
+        hour = "0" + hour;
+    }
+    if (minute >= 0 && minute <= 9) {
+        minute = "0" + minute;
+    }
+    return year+"-"+month+"-"+date+" "+hour+":"+minute;
+}
+
+/**
+ * formate timastamp to time
+ * @param {String} timestamp 13位UNIX时间戳
+ */
+util.formatTimestamp= function(timestamp, format) {
+    var now = new Date(parseInt(timestamp));
+    var date = {
+        "M+": now.getMonth() + 1,
+        "d+": now.getDate(),
+        "h+": now.getHours(),
+        "m+": now.getMinutes(),
+        "s+": now.getSeconds(),
+        "q+": Math.floor((now.getMonth() + 3) / 3),
+        "S+": now.getMilliseconds()
+    };
+    if (/(y+)/i.test(format)) {
+        format = format.replace(RegExp.$1, (now.getFullYear() + '').substr(4 - RegExp.$1.length));
+    }
+    for (var k in date) {
+        if (new RegExp("(" + k + ")").test(format)) {
+            format = format.replace(RegExp.$1, RegExp.$1.length == 1
+                ? date[k] : ("00" + date[k]).substr(("" + date[k]).length));
+        }
+    }
+    return format;
+}
+
 export default util

@@ -29,7 +29,8 @@ export default {
     return api.request.get({
       url: '/getContentList',
       params:{
-        catId:params.catId
+          catId:params.catId,
+          createTime:util.formatDate(new Date().getTime())
       },
       cache:true
     }).then(res => {

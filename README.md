@@ -28,6 +28,12 @@ npm install --save http-proxy-middleware
 npm install --save vuex
 npm install --save element-ui
 npm install babel-plugin-component -D
-npm install md5 lru-cache js-cookie -S
+npm install --save axios md5 lru-cache js-cookie -S
 
 ```
+#### 自适应
+```
+npm i lib-flexible --save
+npm i px2rem-loader --save-dev
+```
+

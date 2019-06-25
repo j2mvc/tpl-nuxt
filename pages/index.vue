@@ -33,7 +33,7 @@ export default {
     return api.request.get({
       url: '/getCats',
       params:{
-        moduleId:'201412290840356913'
+        moduleId:'201412290839325502'
       },
       cache:true
     }).then(res => {
