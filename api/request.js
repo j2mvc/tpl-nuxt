@@ -155,10 +155,6 @@ service.interceptors.response.use(function (response) {
     return Promise.reject(error);
 });
 
-const apikey = '66bb75d01825f4e06963dd645d901bbe'
-// request.get(url,params,true)
-// request.post(url,data,false)
-
 export default {
 
     async get({url,params,cache}){
