@@ -65,7 +65,7 @@ const service = axios.create({
     // `auth` 表示 HTTP 基础验证应当用于连接代理，并提供凭据
     // 这将会设置一个 `Proxy-Authorization` 头，覆写掉已有的通过使用 `header` 设置的自定义 `Proxy-Authorization` 头。
     // proxy: {
-    //     host: 'api.ptjp.gov.cn',
+    //     host: 'api.j2mvc.com',
     //     port: 80,
         // auth: {
         //     username: 'mikeymike',
